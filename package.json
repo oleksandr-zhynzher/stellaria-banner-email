@@ -1,0 +1,32 @@
+{
+  "name": "stellaria-banner-email",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-ready static Stellaria HTML5 banner and responsive HTML email deliverables.",
+  "type": "module",
+  "scripts": {
+    "serve": "node scripts/serve.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint:html": "html-validate banner/index.html email/index.html",
+    "analyze": "npm run analyze:email && npm run analyze:banner && npm run analyze:structure",
+    "analyze:email": "node scripts/analyze-email.mjs",
+    "analyze:banner": "node scripts/analyze-banner.mjs",
+    "analyze:structure": "node scripts/analyze-structure.mjs",
+    "audit": "npm audit --audit-level=high",
+    "build": "node scripts/build-archive.mjs",
+    "quality": "npm run format:check && npm run lint:html && npm run analyze:email && npm run analyze:banner && npm run audit && npm run build && npm run analyze:structure"
+  },
+  "keywords": [
+    "html-email",
+    "html5-banner",
+    "static"
+  ],
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "devDependencies": {
+    "html-validate": "^11.4.0",
+    "prettier": "^3.8.3"
+  }
+}

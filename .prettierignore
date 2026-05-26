@@ -1,0 +1,7 @@
+.git
+node_modules
+*.zip
+**/*.png
+
+.playwright-mcp
+STRICT_HIRING_REVIEW_PROMPT.md
