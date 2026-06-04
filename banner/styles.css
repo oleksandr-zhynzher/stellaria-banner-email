@@ -1,3 +1,9 @@
+@property --pilot-n {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+
 :root {
   --obsidian-900: #05070c;
   --obsidian-800: #0b1426;
@@ -283,6 +289,15 @@ p {
   text-transform: uppercase;
 }
 
+#pilot-count {
+  counter-reset: pilot-n var(--pilot-n);
+  animation: pilot-count-up 950ms var(--ease-out) 5900ms forwards;
+}
+
+#pilot-count::after {
+  content: counter(pilot-n);
+}
+
 .isi {
   position: relative;
   display: flex;
@@ -478,6 +493,15 @@ p {
   }
 }
 
+@keyframes pilot-count-up {
+  from {
+    --pilot-n: 0;
+  }
+  to {
+    --pilot-n: 412;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -498,6 +522,10 @@ p {
     animation: none !important;
     opacity: 1;
     transform: none;
+  }
+
+  #pilot-count {
+    --pilot-n: 412;
   }
 
   .capsule {

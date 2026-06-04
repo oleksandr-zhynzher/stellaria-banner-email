@@ -6,7 +6,6 @@ import { paths } from "./lib/project-paths.mjs";
 
 const html = readFileSync(paths.banner.html, "utf8");
 const css = readFileSync(paths.banner.styles, "utf8");
-const js = readFileSync(paths.banner.js, "utf8");
 const suite = createCheckSuite("Banner analysis");
 
 const imgSources = Array.from(html.matchAll(/<img\b[^>]*\bsrc="([^"]+)"/gi), ([, src]) => src);
@@ -53,14 +52,13 @@ suite.add(
 );
 suite.add(
   "reduced-motion",
-  /@media\s*\(prefers-reduced-motion:\s*reduce\)/i.test(css) &&
-    /countTarget\.textContent\s*=\s*['"]412['"]/i.test(js),
-  "Reduced-motion fallback is implemented.",
+  /@media\s*\(prefers-reduced-motion:\s*reduce\)/i.test(css) && /--pilot-n:\s*412/i.test(css),
+  "Reduced-motion fallback sets the pilot count statically in CSS.",
 );
 suite.add(
   "count-up",
-  /requestAnimationFrame/i.test(js) && /target\s*=\s*412/i.test(js),
-  "412 stat count-up is implemented with requestAnimationFrame.",
+  /@property\s+--pilot-n/i.test(css) && /counter\s*\(\s*pilot-n\s*\)/i.test(css),
+  "412 stat count-up is implemented as a CSS @property counter animation.",
 );
 suite.add(
   "local-assets",
